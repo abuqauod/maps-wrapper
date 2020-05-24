@@ -25,10 +25,7 @@ class SupportMapFragment : Fragment() {
     private val googleFragment: com.google.android.gms.maps.SupportMapFragment by lazy { com.google.android.gms.maps.SupportMapFragment.newInstance() }
     private val huaweiFragment: com.huawei.hms.maps.SupportMapFragment by lazy { com.huawei.hms.maps.SupportMapFragment.newInstance() }
 
-    private var callback: OnMapReadyCallback? = null
-
     fun getMapAsync(callback: OnMapReadyCallback) {
-        this.callback = callback
         when (MapsConfiguration.type) {
             MapType.GOOGLE -> googleFragment.getMapAsync { CommonMap(it).let { commonMap ->  callback.onMapReady(commonMap) } }
             MapType.HUAWEI -> huaweiFragment.getMapAsync { CommonMap(it).let { commonMap ->  callback.onMapReady(commonMap) } }
