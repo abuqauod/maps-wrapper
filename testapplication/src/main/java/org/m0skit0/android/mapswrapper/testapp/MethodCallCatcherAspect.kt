@@ -10,7 +10,7 @@ class MethodCallCatcherAspect {
 
     private val TAG = "[ASPECTJ]"
 
-    @Before("target(org.m0skit0.android.mapswrapper.SupportMapFragment)")
+    @Before("execution(* onCreate())")
     fun anySupportMapFragmentCall(joinPoint: JoinPoint) {
         Log.d(TAG, "Method called: ${joinPoint.toLongString()}")
     }
