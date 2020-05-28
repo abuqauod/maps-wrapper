@@ -1,0 +1,2 @@
+- Gradle must be 6.3
+- Min SDK must be at least 24
