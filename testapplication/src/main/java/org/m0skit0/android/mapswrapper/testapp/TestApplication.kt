@@ -2,8 +2,6 @@ package org.m0skit0.android.mapswrapper.testapp
 
 import android.app.Application
 import android.util.Log
-import org.m0skit0.android.mapswrapper.MapType
-import org.m0skit0.android.mapswrapper.MapsConfiguration
 import java.lang.reflect.Field
 
 
@@ -31,7 +29,6 @@ class TestApplication : Application() {
         }
 
         super.onCreate()
-        MapsConfiguration.type = MapType.GOOGLE
     }
 
     private fun <T> Class<*>.getFieldValue(instance: Any, name: String): T? =
