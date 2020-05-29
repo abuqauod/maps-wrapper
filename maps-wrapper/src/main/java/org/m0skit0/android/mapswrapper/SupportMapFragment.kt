@@ -20,7 +20,7 @@ import java.io.PrintWriter
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class SupportMapFragment : Fragment() {
+open class SupportMapFragment : Fragment() {
 
     private val googleFragment: com.google.android.gms.maps.SupportMapFragment by lazy { com.google.android.gms.maps.SupportMapFragment.newInstance() }
     private val huaweiFragment: com.huawei.hms.maps.SupportMapFragment by lazy { com.huawei.hms.maps.SupportMapFragment.newInstance() }

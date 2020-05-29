@@ -21,7 +21,7 @@ class TestApplication : Application() {
             }
             loadedApk.javaClass.getFieldValue<ClassLoader>(loadedApk, "mClassLoader")?.let {
                 Log.d(TAG, "mClassLoader value: $it")
-                loadedApk.setFieldValue("mClassLoader", TestClassloader(it))
+                loadedApk.setFieldValue("mClassLoader", TestClassloader(this, it))
                 loadedApk.javaClass.getFieldValue<ClassLoader>(loadedApk, "mClassLoader")?.let {
                     Log.d(TAG, "mClassLoader value: $it")
                 }
