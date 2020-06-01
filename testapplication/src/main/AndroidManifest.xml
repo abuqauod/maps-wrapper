@@ -5,6 +5,7 @@
     <application
         android:name="org.m0skit0.android.mapswrapper.testapp.TestApplication"
         android:allowBackup="true"
+        android:theme="@style/Theme.AppCompat"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
