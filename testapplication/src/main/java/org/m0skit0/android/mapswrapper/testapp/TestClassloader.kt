@@ -4,8 +4,16 @@ import android.content.Context
 import android.util.Log
 import net.bytebuddy.ByteBuddy
 import net.bytebuddy.android.AndroidClassLoadingStrategy
+import net.bytebuddy.dynamic.scaffold.InstrumentedType
+import net.bytebuddy.implementation.FixedValue
+import net.bytebuddy.implementation.Implementation
+import net.bytebuddy.implementation.MethodCall
 import net.bytebuddy.implementation.MethodDelegation
+import net.bytebuddy.implementation.bind.MethodNameEqualityResolver
+import net.bytebuddy.implementation.bytecode.ByteCodeAppender
 import net.bytebuddy.matcher.ElementMatchers
+import net.bytebuddy.matcher.ElementMatchers.*
+import net.bytebuddy.matcher.ElementMatchers.isDeclaredBy
 import org.m0skit0.android.mapswrapper.SupportMapFragment
 import java.io.InputStream
 import java.net.URL
@@ -27,22 +35,14 @@ class TestClassloader(private val context: Context, private val classLoader: Cla
         classLoader.setClassAssertionStatus(className, enabled)
     }
 
-    interface Forwarder<T, U> {
-        fun to(target: U): T
-    }
-
-    class ForwarderInterceptor {
-
-    }
-
     override fun loadClass(name: String?): Class<*> {
         Log.d(TAG, "loadClass $name")
         if (name == "org.m0skit0.android.mapswrapper.SupportMapFragment") {
             val file = context.getDir("temp", Context.MODE_PRIVATE)
             return ByteBuddy()
                 .subclass(SupportMapFragment::class.java)
-                .method(ElementMatchers.any())
-                .intercept(MethodDelegation.to(com.google.android.gms.maps.SupportMapFragment.newInstance()))
+                .method(not(isDeclaredBy(java.lang.Object::class.java)))
+                .intercept(MethodCall.invokeSelf().on(com.google.android.gms.maps.SupportMapFragment.newInstance()))
                 .make()
                 .load(MainActivity::class.java.classLoader, AndroidClassLoadingStrategy.Injecting(file))
                 .loaded
